@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SynapseNET | Advanced Mine Intelligence</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="glass-sidebar">
+
+<div class="brand">
+<h2>Synapse<span>NET</span></h2>
+</div>
+
+<nav>
+
+<a class="active">
+<i data-lucide="layout-dashboard"></i>
+Dashboard
+</a>
+
+<a>
+<i data-lucide="activity"></i>
+Analytics
+</a>
+
+<a>
+<i data-lucide="shield-alert"></i>
+Incidents
+</a>
+
+<a>
+<i data-lucide="settings"></i>
+System
+</a>
+
+</nav>
+
+<div class="sidebar-footer">
+
+<button id="theme-toggle" class="glass-btn">
+<i data-lucide="sun" class="sun-icon"></i>
+<i data-lucide="moon" class="moon-icon"></i>
+</button>
+
+</div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main class="main-content">
+
+<!-- HEADER -->
+
+<header class="glass-header">
+
+<div class="header-left">
+
+<span class="breadcrumb">
+Overview / Real-time Monitoring
+</span>
+
+<h1 id="node-info">
+Main Node: <span>Calculating...</span>
+</h1>
+
+</div>
+
+<div class="header-right">
+
+<div class="status-badge ai-badge">
+<span class="dot pulse-blue"></span>
+KNN Engine Active
+</div>
+
+<div class="status-badge server-badge">
+<span id="connection-dot" class="dot"></span>
+<span id="connection-text">Syncing</span>
+</div>
+
+<div class="clock-display" id="clock">
+00:00:00
+</div>
+
+</div>
+
+</header>
+
+
+<!-- DASHBOARD GRID -->
+
+<div class="dashboard-grid">
+
+    <!-- LEFT PANEL -->
+
+    <div class="col-primary">
+
+        <!-- SAFETY INDEX -->
+
+        <div class="glass-card risk-hero">
+
+            <div class="risk-info">
+                <h3>Safety Index</h3>
+                <h2 id="risk-score">0%</h2>
+                <span id="status-text" class="status-label">
+                    INITIALIZING
+                </span>
+            </div>
+
+            <div class="risk-visual">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+
+                    <path class="circle-bg"
+                    d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"/>
+
+                    <path id="risk-path"
+                    class="circle"
+                    stroke-dasharray="0,100"
+                    d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"/>
+
+                </svg>
+            </div>
+
+        </div>
+
+        <!-- SENSOR CARDS -->
+
+        <div class="sensor-grid-premium">
+
+            <div class="sensor-card-glass" id="card-temp">
+                <i data-lucide="thermometer"></i>
+                <div class="val-group">
+                    <span>Temperature</span>
+                    <p id="temp">--°C</p>
+                </div>
+            </div>
+
+            <div class="sensor-card-glass" id="card-hum">
+                <i data-lucide="droplets"></i>
+                <div class="val-group">
+                    <span>Humidity</span>
+                    <p id="hum">--%</p>
+                </div>
+            </div>
+
+            <div class="sensor-card-glass" id="card-mq2">
+                <i data-lucide="wind"></i>
+                <div class="val-group">
+                    <span>MQ2 Methane</span>
+                    <p id="mq2">--</p>
+                </div>
+            </div>
+
+            <div class="sensor-card-glass" id="card-mq135">
+                <i data-lucide="cloud-rain"></i>
+                <div class="val-group">
+                    <span>MQ135 CO2</span>
+                    <p id="mq135">--</p>
+                </div>
+            </div>
+
+            <div class="sensor-card-glass" id="card-vib">
+                <i data-lucide="zap"></i>
+                <div class="val-group">
+                    <span>Seismic / Vibration</span>
+                    <p id="vib">--</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT PANEL -->
+
+    <div class="col-secondary">
+
+        <!-- ALERT PANEL -->
+
+        <div class="glass-card alerts-panel">
+
+            <div class="card-header">
+                <h3>
+                    Critical Alerts
+                    <span class="badge" id="alert-count">0</span>
+                </h3>
+            </div>
+
+            <div id="alerts-list" class="alerts-container">
+                <div class="empty-state">
+                    System secure. No threats detected.
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ATMOSPHERIC CHART -->
+
+        <div class="glass-card chart-card">
+
+            <div class="card-header-chart">
+                <i data-lucide="line-chart"></i>
+                <h3>Atmospheric Trends</h3>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="tempChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SECOND ROW CHARTS -->
+
+<div class="charts-row">
+
+    <!-- METHANE CHART -->
+
+    <div class="glass-card chart-card">
+
+        <div class="card-header-chart">
+            <i data-lucide="bar-chart-3"></i>
+            <h3>Methane Levels (MQ-2)</h3>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="gasChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- AIR QUALITY CHART -->
+
+    <div class="glass-card chart-card">
+
+        <div class="card-header-chart">
+            <i data-lucide="wind"></i>
+            <h3>CO₂ & Toxic Gas (MQ-135)</h3>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="airChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<script>
+lucide.createIcons();
+</script>
+
+<script src="/static/dashboard.js"></script>
+
+</body>
+</html>
